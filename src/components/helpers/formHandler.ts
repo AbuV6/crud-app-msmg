@@ -32,7 +32,7 @@ export const resetForm = () => {
   form.dob = "";
   form.department = "";
   form.mealPref = "";
-  form.mealPref = "";
+  form.travelling = "";
   errors.name = "";
   errors.age = "";
   errors.email = "";
