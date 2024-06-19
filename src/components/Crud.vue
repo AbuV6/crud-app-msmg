@@ -1,44 +1,12 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
-
-// Define form data and table data
-const form = reactive({
-  name: "",
-  age: "",
-  email: "",
-  phone: "",
-  dob: "",
-  department: "",
-  mealPref: "",
-  travelling: "",
-});
-
-const errors = reactive({
-  name: "",
-  age: "",
-  email: "",
-  phone: "",
-  dob: "",
-  department: "",
-  mealPref: "",
-  travelling: "",
-});
-
-const tableData = ref<
-  {
-    id: number;
-    name: string;
-    age: number;
-    email: string;
-    phone: number;
-    dob: number;
-    department: string;
-    mealPref: string;
-    travelling: string;
-  }[]
->([]);
-
-const selectedRowId = ref<number | null>(null);
+import { computed } from "vue";
+import { form, errors, resetForm } from "./helpers/formHandler";
+import {
+  tableData,
+  selectedRowId,
+  deleteRow,
+  selectRow,
+} from "./helpers/tableData";
 
 // Add or update a row in the table
 const submitForm = () => {
@@ -73,6 +41,14 @@ const submitForm = () => {
       : "Valid Date of Birth format required DD/MM/YYYY"
     : "Date of Birth is required.";
 
+  errors.department = form.department ? "" : "Please select a department";
+
+  errors.mealPref = form.mealPref ? "" : "Please select a meal preference";
+
+  errors.travelling = form.travelling
+    ? ""
+    : "Please select where you are trvelling from";
+
   // Check if there are any errors
   if (Object.values(errors).some((error) => error !== "")) {
     return;
@@ -93,47 +69,6 @@ const submitForm = () => {
     selectedRowId.value = null;
   }
   resetForm();
-};
-
-// Delete a row from the table
-const deleteRow = (id: number) => {
-  tableData.value = tableData.value.filter((row) => row.id !== id);
-};
-
-// Populate form with selected row data
-const selectRow = (row: {
-  id: number;
-  name: string;
-  age: number;
-  email: string;
-  phone: number;
-  dob: number;
-  department: string;
-  mealPref: string;
-  travelling: string;
-}) => {
-  Object.assign(form, row);
-  selectedRowId.value = row.id;
-};
-
-// Reset form
-const resetForm = () => {
-  form.name = "";
-  form.age = "";
-  form.email = "";
-  form.phone = "";
-  form.dob = "";
-  form.department = "";
-  form.mealPref = "";
-  form.mealPref = "";
-  errors.name = "";
-  errors.age = "";
-  errors.email = "";
-  errors.phone = "";
-  errors.dob = "";
-  errors.department = "";
-  errors.mealPref = "";
-  errors.travelling = "";
 };
 
 const isUpdateMode = computed(() => selectedRowId.value !== null);
