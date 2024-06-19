@@ -8,6 +8,9 @@ const form = reactive({
   email: "",
   phone: "",
   dob: "",
+  department: "",
+  mealPref: "",
+  travelling: "",
 });
 
 const errors = reactive({
@@ -16,6 +19,9 @@ const errors = reactive({
   email: "",
   phone: "",
   dob: "",
+  department: "",
+  mealPref: "",
+  travelling: "",
 });
 
 const tableData = ref<
@@ -26,6 +32,9 @@ const tableData = ref<
     email: string;
     phone: number;
     dob: number;
+    department: string;
+    mealPref: string;
+    travelling: string;
   }[]
 >([]);
 
@@ -99,6 +108,9 @@ const selectRow = (row: {
   email: string;
   phone: number;
   dob: number;
+  department: string;
+  mealPref: string;
+  travelling: string;
 }) => {
   Object.assign(form, row);
   selectedRowId.value = row.id;
@@ -111,11 +123,17 @@ const resetForm = () => {
   form.email = "";
   form.phone = "";
   form.dob = "";
+  form.department = "";
+  form.mealPref = "";
+  form.mealPref = "";
   errors.name = "";
   errors.age = "";
   errors.email = "";
   errors.phone = "";
   errors.dob = "";
+  errors.department = "";
+  errors.mealPref = "";
+  errors.travelling = "";
 };
 
 const isUpdateMode = computed(() => selectedRowId.value !== null);
@@ -148,6 +166,41 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
       <input v-model="form.dob" type="text" />
       <span class="error">{{ errors.dob }}</span>
     </label>
+
+    <label>
+      Department:
+      <select v-model="form.department">
+        <option value="">Select Department</option>
+        <option value="HR">HR</option>
+        <option value="Design">Design</option>
+        <option value="Marketing">Marketing</option>
+      </select>
+      <span class="error">{{ errors.department }}</span>
+    </label>
+
+    <label>
+      Meal Preference:
+      <select v-model="form.mealPref">
+        <option value="">Select Meal Preference</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Non-vegetarian">Non-Vegetarian</option>
+        <option value="Halal">Halal</option>
+        <option value="Kosher">Kosher</option>
+        <option value="Gluten-free">Gluten-Free</option>
+      </select>
+      <span class="error">{{ errors.mealPref }}</span>
+    </label>
+
+    <label>
+      Travelling From:
+      <select v-model="form.travelling">
+        <option value="">Select Travelling From</option>
+        <option value="Manchester">Manchester</option>
+        <option value="London">London</option>
+      </select>
+      <span class="error">{{ errors.travelling }}</span>
+    </label>
+
     <button @click="submitForm">{{ isUpdateMode ? "Update" : "Add" }}</button>
     <button @click="resetForm">Reset</button>
   </div>
@@ -160,6 +213,9 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
         <th>Email</th>
         <th>Phone</th>
         <th>Date of Birth</th>
+        <th>Department</th>
+        <th>Meal Prefernece</th>
+        <th>Travelling From</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -170,24 +226,23 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
         <td>{{ row.email }}</td>
         <td>{{ row.phone }}</td>
         <td>{{ row.dob }}</td>
-        <td>
-          <button @click="selectRow(row)">Update</button>
-          <button @click="deleteRow(row.id)">Delete</button>
-        </td>
+        <td>{{ row.department }}</td>
+        <td>{{ row.mealPref }}</td>
+        <td>{{ row.travelling }}</td>
+        <button @click="selectRow(row)">Update</button>
+        <button @click="deleteRow(row.id)">Delete</button>
       </tr>
     </tbody>
   </table>
 </template>
 
 <style>
-.error {
-  color: red;
-}
-</style>
-
-<style scoped>
 .form {
   margin-bottom: 16px;
+}
+
+.error {
+  color: red;
 }
 
 label {
