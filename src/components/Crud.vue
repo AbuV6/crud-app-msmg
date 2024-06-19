@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { form, errors, resetForm } from "./helpers/formHandler";
 import {
   tableData,
@@ -7,6 +7,8 @@ import {
   deleteRow,
   selectRow,
 } from "./helpers/tableData";
+
+const viewedRow = ref(null);
 
 // Add or update a row in the table
 const submitForm = () => {
@@ -20,19 +22,19 @@ const submitForm = () => {
       : "Must be a valid age"
     : "Age is required.";
 
-  const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  errors.email = form.email
-    ? emailRegEx.test(form.email)
-      ? ""
-      : "Must be a valid Email"
-    : "Email is required.";
-
   const phoneNumberRegex = /^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/;
   errors.phone = form.phone
     ? phoneNumberRegex.test(form.phone)
       ? ""
       : "Valid Phone Number is required"
     : "Phone Number is required.";
+
+  const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  errors.email = form.email
+    ? emailRegEx.test(form.email)
+      ? ""
+      : "Must be a valid Email"
+    : "Email is required.";
 
   const dobRegEx = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
   errors.dob = form.dob
@@ -71,6 +73,14 @@ const submitForm = () => {
   resetForm();
 };
 
+const view = (row) => {
+  viewedRow.value = row;
+};
+
+const closeDetails = () => {
+  viewedRow.value = null;
+};
+
 const isUpdateMode = computed(() => selectedRowId.value !== null);
 </script>
 
@@ -87,16 +97,16 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
       <span class="error">{{ errors.age }}</span>
     </label>
     <label>
-      Email:
-      <input v-model="form.email" type="email" />
-      <span class="error">{{ errors.email }}</span>
-    </label>
-    <label>
       Phone:
       <input v-model="form.phone" type="text" />
       <span class="error">{{ errors.phone }}</span>
     </label>
     <label>
+      <label>
+        Email:
+        <input v-model="form.email" type="email" />
+        <span class="error">{{ errors.email }}</span>
+      </label>
       Date of Birth:
       <input v-model="form.dob" type="text" />
       <span class="error">{{ errors.dob }}</span>
@@ -145,12 +155,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
       <tr>
         <th>Name</th>
         <th>Age</th>
-        <th>Email</th>
         <th>Phone</th>
-        <th>Date of Birth</th>
-        <th>Department</th>
-        <th>Meal Prefernece</th>
-        <th>Travelling From</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -158,17 +163,26 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
       <tr v-for="row in tableData" :key="row.id">
         <td>{{ row.name }}</td>
         <td>{{ row.age }}</td>
-        <td>{{ row.email }}</td>
         <td>{{ row.phone }}</td>
-        <td>{{ row.dob }}</td>
-        <td>{{ row.department }}</td>
-        <td>{{ row.mealPref }}</td>
-        <td>{{ row.travelling }}</td>
         <button @click="selectRow(row)">Update</button>
         <button @click="deleteRow(row.id)">Delete</button>
+        <button @click="view(row)">View</button>
       </tr>
     </tbody>
   </table>
+
+  <div v-if="viewedRow" class="modal">
+    <h2>Details</h2>
+    <p><strong>Name:</strong> {{ viewedRow.name }}</p>
+    <p><strong>Age:</strong> {{ viewedRow.age }}</p>
+    <p><strong>Phone:</strong> {{ viewedRow.phone }}</p>
+    <p><strong>Email:</strong> {{ viewedRow.email }}</p>
+    <p><strong>Date of Birth:</strong> {{ viewedRow.dob }}</p>
+    <p><strong>Department:</strong> {{ viewedRow.department }}</p>
+    <p><strong>Meal Preference:</strong> {{ viewedRow.mealPref }}</p>
+    <p><strong>Travelling From:</strong> {{ viewedRow.travelling }}</p>
+    <button @click="closeDetails">Close</button>
+  </div>
 </template>
 
 <style>

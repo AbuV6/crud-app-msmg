@@ -4,8 +4,8 @@ import { reactive } from "vue";
 export const form = reactive({
   name: "",
   age: "",
-  email: "",
   phone: "",
+  email: "",
   dob: "",
   department: "",
   mealPref: "",
@@ -15,8 +15,8 @@ export const form = reactive({
 export const errors = reactive({
   name: "",
   age: "",
-  email: "",
   phone: "",
+  email: "",
   dob: "",
   department: "",
   mealPref: "",
@@ -27,8 +27,8 @@ export const errors = reactive({
 export const resetForm = () => {
   form.name = "";
   form.age = "";
-  form.email = "";
   form.phone = "";
+  form.email = "";
   form.dob = "";
   form.department = "";
   form.mealPref = "";

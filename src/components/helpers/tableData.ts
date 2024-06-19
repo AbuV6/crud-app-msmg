@@ -5,8 +5,8 @@ export const tableData = ref<
     id: number;
     name: string;
     age: number;
-    email: string;
     phone: number;
+    email: string;
     dob: number;
     department: string;
     mealPref: string;
@@ -26,8 +26,8 @@ export const selectRow = (row: {
   id: number;
   name: string;
   age: number;
-  email: string;
   phone: number;
+  email: string;
   dob: number;
   department: string;
   mealPref: string;
