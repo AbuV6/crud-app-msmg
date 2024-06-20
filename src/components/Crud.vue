@@ -66,7 +66,7 @@ const submitForm = () => {
     // Update existing row
     const row = tableData.value.find((row) => row.id === selectedRowId.value);
     if (row) {
-      Object.assign(row, form);
+      Object.assign(form, row);
     }
     selectedRowId.value = null;
   }
@@ -150,7 +150,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
     <button @click="resetForm">Reset</button>
   </div>
 
-  <table>
+  <!-- <table>
     <thead>
       <tr>
         <th>Name</th>
@@ -169,7 +169,20 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
         <button @click="view(row)">View</button>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <template>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+        <p class="card-text">Age: {{ age }}</p>
+        <p class="card-text">Phone: {{ phone }}</p>
+        <button @click="update" class="btn btn-primary">Update</button>
+        <button @click="delete" class="btn btn-danger">Delete</button>
+        <button @click="view" class="btn btn-info">View</button>
+      </div>
+    </div>
+  </template>
 
   <div v-if="viewedRow" class="modal">
     <h2>Details</h2>
@@ -209,5 +222,18 @@ td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
+}
+
+.card {
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.card-body {
+  padding: 20px;
+}
+.btn {
+  margin: 5px;
 }
 </style>
