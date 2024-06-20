@@ -7,6 +7,7 @@ import {
   deleteRow,
   selectRow,
 } from "./helpers/tableData";
+import CardComponent from "./CardComponent.vue";
 
 const viewedRow = ref(null);
 
@@ -146,45 +147,24 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
       <span class="error">{{ errors.travelling }}</span>
     </label>
 
-    <button @click="submitForm">{{ isUpdateMode ? "Update" : "Add" }}</button>
+    <button @click="submitForm">Add</button>
     <button @click="resetForm">Reset</button>
   </div>
 
-  <!-- <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Phone</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="row in tableData" :key="row.id">
-        <td>{{ row.name }}</td>
-        <td>{{ row.age }}</td>
-        <td>{{ row.phone }}</td>
-        <button @click="selectRow(row)">Update</button>
-        <button @click="deleteRow(row.id)">Delete</button>
-        <button @click="view(row)">View</button>
-      </tr>
-    </tbody>
-  </table> -->
+  <div class="container">
+    <CardComponent
+      v-for="row in tableData"
+      :key="row.id"
+      :name="row.name"
+      :age="row.age"
+      :phone="row.phone"
+      :update="() => selectRow(row)"
+      :remove="() => deleteRow(row.id)"
+      :view="() => view(row)"
+    />
+  </div>
 
-  <template>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ name }}</h5>
-        <p class="card-text">Age: {{ age }}</p>
-        <p class="card-text">Phone: {{ phone }}</p>
-        <button @click="update" class="btn btn-primary">Update</button>
-        <button @click="delete" class="btn btn-danger">Delete</button>
-        <button @click="view" class="btn btn-info">View</button>
-      </div>
-    </div>
-  </template>
-
-  <div v-if="viewedRow" class="modal">
+  <!-- <div v-if="viewedRow" class="modal">
     <h2>Details</h2>
     <p><strong>Name:</strong> {{ viewedRow.name }}</p>
     <p><strong>Age:</strong> {{ viewedRow.age }}</p>
@@ -195,7 +175,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
     <p><strong>Meal Preference:</strong> {{ viewedRow.mealPref }}</p>
     <p><strong>Travelling From:</strong> {{ viewedRow.travelling }}</p>
     <button @click="closeDetails">Close</button>
-  </div>
+  </div> -->
 </template>
 
 <style>
@@ -212,28 +192,11 @@ label {
   margin-bottom: 8px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
-
 .card {
-  margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 1px;
+  border: 1px;
 }
 .card-body {
   padding: 20px;
-}
-.btn {
-  margin: 5px;
 }
 </style>
