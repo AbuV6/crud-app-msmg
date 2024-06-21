@@ -8,71 +8,9 @@ import {
   selectRow,
 } from "./helpers/tableData";
 import CardComponent from "./CardComponent.vue";
+import { submitForm } from "./helpers/validators";
 
 const viewedRow = ref(null);
-
-// Add or update a row in the table
-const submitForm = () => {
-  // Validate the form
-  errors.name = form.name ? "" : "Name is required.";
-
-  const ageRegEx = /^(0|[1-9][0-9]?|100)$/;
-  errors.age = form.age
-    ? ageRegEx.test(form.age)
-      ? ""
-      : "Must be a valid age"
-    : "Age is required.";
-
-  const phoneNumberRegex = /^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/;
-  errors.phone = form.phone
-    ? phoneNumberRegex.test(form.phone)
-      ? ""
-      : "Valid Phone Number is required"
-    : "Phone Number is required.";
-
-  const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  errors.email = form.email
-    ? emailRegEx.test(form.email)
-      ? ""
-      : "Must be a valid Email"
-    : "Email is required.";
-
-  const dobRegEx = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
-  errors.dob = form.dob
-    ? dobRegEx.test(form.dob)
-      ? ""
-      : "Valid Date of Birth format required DD/MM/YYYY"
-    : "Date of Birth is required.";
-
-  errors.department = form.department ? "" : "Please select a department";
-
-  errors.mealPref = form.mealPref ? "" : "Please select a meal preference";
-
-  errors.travelling = form.travelling
-    ? ""
-    : "Please select where you are trvelling from";
-
-  // Check if there are any errors
-  if (Object.values(errors).some((error) => error !== "")) {
-    return;
-  }
-
-  if (selectedRowId.value === null) {
-    // Add new row
-    tableData.value.push({
-      id: Date.now(),
-      ...form,
-    });
-  } else {
-    // Update existing row
-    const row = tableData.value.find((row) => row.id === selectedRowId.value);
-    if (row) {
-      Object.assign(form, row);
-    }
-    selectedRowId.value = null;
-  }
-  resetForm();
-};
 
 const view = (row) => {
   viewedRow.value = row;
@@ -147,7 +85,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
       <span class="error">{{ errors.travelling }}</span>
     </label>
 
-    <button @click="submitForm">Add</button>
+    <button @click="submitForm">{{ isUpdateMode ? "Update" : "Add" }}</button>
     <button @click="resetForm">Reset</button>
   </div>
 
@@ -164,7 +102,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
     />
   </div>
 
-  <!-- <div v-if="viewedRow" class="modal">
+  <div v-if="viewedRow">
     <h2>Details</h2>
     <p><strong>Name:</strong> {{ viewedRow.name }}</p>
     <p><strong>Age:</strong> {{ viewedRow.age }}</p>
@@ -175,7 +113,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
     <p><strong>Meal Preference:</strong> {{ viewedRow.mealPref }}</p>
     <p><strong>Travelling From:</strong> {{ viewedRow.travelling }}</p>
     <button @click="closeDetails">Close</button>
-  </div> -->
+  </div>
 </template>
 
 <style>

@@ -1,5 +1,4 @@
 <script>
-import { deleteRow, selectRow } from "./helpers/tableData";
 
 export default {
   name: "CardComponent",
