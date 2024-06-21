@@ -11,6 +11,7 @@ import CardComponent from "./CardComponent.vue";
 import { submitForm } from "./helpers/validators";
 
 const viewedRow = ref(null);
+const selectedLocation = ref("");
 
 const view = (row) => {
   viewedRow.value = row;
@@ -21,6 +22,15 @@ const closeDetails = () => {
 };
 
 const isUpdateMode = computed(() => selectedRowId.value !== null);
+
+const filteredTableData = computed(() => {
+  if (!selectedLocation.value) {
+    return tableData.value;
+  }
+  return tableData.value.filter(
+    (row) => row.travelling === selectedLocation.value,
+  );
+});
 </script>
 
 <template>
@@ -89,13 +99,25 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
     <button @click="resetForm">Reset</button>
   </div>
 
+  <div class="filter">
+    <label>
+      Filter by Location:
+      <select v-model="selectedLocation">
+        <option value="">All Locations</option>
+        <option value="Manchester">Manchester</option>
+        <option value="London">London</option>
+      </select>
+    </label>
+  </div>
+
   <div class="container">
     <CardComponent
-      v-for="row in tableData"
+      v-for="row in filteredTableData"
       :key="row.id"
       :name="row.name"
       :age="row.age"
       :phone="row.phone"
+      :travelling="row.travelling"
       :update="() => selectRow(row)"
       :remove="() => deleteRow(row.id)"
       :view="() => view(row)"
