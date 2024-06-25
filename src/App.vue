@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import Crud from "./components/Crud.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <Crud />
+  <RouterView />
 </template>
 
 <style></style>

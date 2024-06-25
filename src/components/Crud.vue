@@ -120,7 +120,7 @@ const filteredTableData = computed(() => {
       :travelling="row.travelling"
       :update="() => selectRow(row)"
       :remove="() => deleteRow(row.id)"
-      :view="() => view(row)"
+      :id="row.id"
     />
   </div>
 
@@ -153,10 +153,14 @@ label {
 }
 
 .card {
-  margin: 1px;
+  margin: 20px;
   border: 1px;
+  padding: 5px;
 }
-.card-body {
-  padding: 20px;
+.container {
+  font-size: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 </style>

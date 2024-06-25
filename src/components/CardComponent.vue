@@ -8,7 +8,7 @@ export default {
     travelling: String,
     update: Function,
     remove: Function,
-    view: Function,
+    id: Number,
   },
   computed: {
     borderColor() {
@@ -27,8 +27,8 @@ export default {
     class="card"
     :style="{
       borderColor: borderColor,
-      borderStyle: 'solid',
-      borderWidth: '2px',
+      borderStyle: 'ridge',
+      borderWidth: '7px',
     }"
   >
     <div class="card-body">
@@ -37,7 +37,7 @@ export default {
       <p class="card-text">Phone: {{ phone }}</p>
       <button @click="update" class="btn-update">Update</button>
       <button @click="remove" class="btn-delete">Delete</button>
-      <button @click="view" class="btn-view">View</button>
+      <RouterLink :to="`/guest/${id}`">View</RouterLink>
     </div>
   </div>
 </template>
