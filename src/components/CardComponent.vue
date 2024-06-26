@@ -37,7 +37,7 @@ export default {
       <p class="card-text">Phone: {{ phone }}</p>
       <button @click="update" class="btn-update">Update</button>
       <button @click="remove" class="btn-delete">Delete</button>
-      <RouterLink :to="`/guest/${id}`">View</RouterLink>
+      <RouterLink class="button-view" :to="`/guest/${id}`">View</RouterLink>
     </div>
   </div>
 </template>
@@ -48,5 +48,19 @@ export default {
 }
 .card-body {
   padding: 20px;
+}
+
+.button-view {
+  color: black;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 9px 19px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin: 3px;
 }
 </style>

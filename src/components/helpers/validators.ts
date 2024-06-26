@@ -1,7 +1,9 @@
 import { form, errors, resetForm } from "./formHandler";
 import { tableData, selectedRowId } from "./tableData";
+import { useGuestStore } from "../../stores/guestList";
 // Add or update a row in the table
 export const submitForm = () => {
+  const store = useGuestStore();
   // Validate the form
   errors.name = form.name ? "" : "Name is required.";
 
@@ -47,14 +49,17 @@ export const submitForm = () => {
   }
 
   if (selectedRowId.value === null) {
-    // Add new row
-    tableData.value.push({
+    console.log(1);
+
+    store.addGuest({
       id: Date.now(),
       ...form,
     });
   } else {
     // Update existing row
-    const row = tableData.value.find((row) => row.id === selectedRowId.value);
+    const row = store.guests.find((row) => row.id === selectedRowId.value);
+    console.log(row);
+
     if (row) {
       Object.assign(row, form);
     }

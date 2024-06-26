@@ -1,13 +1,12 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
-export const useCounterStore = defineStore("counter", () => {
-  const count = ref(2);
-  const name = ref("Eduardo");
-  const doubleCount = computed(() => count.value * 2);
-  const increment = () => {
-    count.value++;
-  };
+export const useGuestStore = defineStore("guests", () => {
+  const guests = ref([]);
 
-  return { count, name, doubleCount, increment };
+  function addGuest(guest) {
+    guests.value.push(guest);
+  }
+
+  return { guests, addGuest };
 });

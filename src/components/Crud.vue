@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { form, errors, resetForm } from "./helpers/formHandler";
+import { useGuestStore } from "../stores/guestList";
+const store = useGuestStore();
+import { storeToRefs } from "pinia";
+const { guests } = storeToRefs(store);
 import {
   tableData,
   selectedRowId,
@@ -112,7 +116,7 @@ const filteredTableData = computed(() => {
 
   <div class="container">
     <CardComponent
-      v-for="row in filteredTableData"
+      v-for="row in guests"
       :key="row.id"
       :name="row.name"
       :age="row.age"
@@ -124,7 +128,7 @@ const filteredTableData = computed(() => {
     />
   </div>
 
-  <div v-if="viewedRow">
+  <!-- <div v-if="viewedRow">
     <h2>Details</h2>
     <p><strong>Name:</strong> {{ viewedRow.name }}</p>
     <p><strong>Age:</strong> {{ viewedRow.age }}</p>
@@ -135,7 +139,7 @@ const filteredTableData = computed(() => {
     <p><strong>Meal Preference:</strong> {{ viewedRow.mealPref }}</p>
     <p><strong>Travelling From:</strong> {{ viewedRow.travelling }}</p>
     <button @click="closeDetails">Close</button>
-  </div>
+  </div> -->
 </template>
 
 <style>
