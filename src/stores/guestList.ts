@@ -38,5 +38,5 @@ travelling
     guests.value.push(guest);
   }
 
-  return { guests, addGuest };
+  return {guests, addGuest };
 });
