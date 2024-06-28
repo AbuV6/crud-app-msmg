@@ -52,10 +52,12 @@ const filteredTableData = computed(() => {
 </template>
 
 <style>
+
 .container {
   font-size: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  border-radius: 20px;
 }
 </style>

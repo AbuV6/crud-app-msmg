@@ -45,9 +45,10 @@ export default {
 <style scoped>
 .card {
   border-radius: 10px;
-}
-.card-body {
-  padding: 20px;
+
+  &-body {
+    padding: 20px;
+  }
 }
 
 .button-view {
@@ -63,4 +64,5 @@ export default {
   transition: border-color 0.25s;
   margin: 3px;
 }
+
 </style>

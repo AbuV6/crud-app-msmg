@@ -91,16 +91,4 @@ label {
   display: block;
   margin-bottom: 8px;
 }
-.card {
-  margin: 20px;
-  border: 1px;
-  padding: 5px;
-}
-.container {
-  font-size: 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
 </style>
