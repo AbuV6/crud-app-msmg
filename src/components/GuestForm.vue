@@ -9,10 +9,11 @@ import {
 import { submitForm } from "./helpers/validators";
 
 const isUpdateMode = computed(() => selectedRowId.value !== null);
+
 </script>
 
 <template>
-  <div class="form">
+  <form @submit.prevent="submitForm" class="form">
     <label>
       Name:
       <input v-model="form.name" type="text" />
@@ -75,7 +76,7 @@ const isUpdateMode = computed(() => selectedRowId.value !== null);
 
     <button @click="submitForm">{{ isUpdateMode ? "Update" : "Add" }}</button>
     <button @click="resetForm">Reset</button>
-  </div>
+  </form>
 </template>
 
 <style>
