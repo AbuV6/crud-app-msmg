@@ -27,7 +27,9 @@ const guest = guests.value.find((guest) => {
 </template>
 
 <style scoped>
-.container{
+
+.container {
+  
   border: 10px;
   border-style:ridge;
   display: block;

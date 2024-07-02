@@ -15,7 +15,7 @@ dob
 "11/11/1991",
 email
 : 
-"sss@hotmail.co.uk",
+"bakz@vali.co.uk",
 id
 : 
 1719399045530,
@@ -24,7 +24,7 @@ mealPref
 "Non-vegetarian",
 name
 : 
-"sada",
+"bakz",
 phone
 : 
 "07762365252",
