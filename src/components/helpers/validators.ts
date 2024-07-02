@@ -1,5 +1,5 @@
 import { form, errors, resetForm } from "./formHandler";
-import { tableData, selectedRowId } from "./tableData";
+import { selectedRowId } from "./tableData";
 import { useGuestStore } from "../../stores/guestList";
 // Add or update a row in the table
 export const submitForm = () => {

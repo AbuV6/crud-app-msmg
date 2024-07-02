@@ -6,13 +6,14 @@ import { storeToRefs } from "pinia";
 const { guests } = storeToRefs(store);
 
 const route = useRoute()
-const guest = guests.value.find((guest) => {
+const guest = guests.value.find((guest:any) => {
   return guest.id == route.params.id;
 });
 
 </script>
 
 <template>
+
   <div class="container">
   <div>Name: {{ guest.name }}</div>
   <div>Age: {{ guest.age }}</div>
@@ -29,7 +30,7 @@ const guest = guests.value.find((guest) => {
 <style scoped>
 
 .container {
-  
+
   border: 10px;
   border-style:ridge;
   display: block;

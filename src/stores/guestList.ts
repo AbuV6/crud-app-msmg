@@ -34,7 +34,7 @@ travelling
     }
   ]);
 
-  function addGuest(guest) {
+  function addGuest(guest : any) {
     guests.value.push(guest);
   }
 

@@ -10,12 +10,12 @@ import { deleteRow } from "./helpers/tableData"
  
 const selectedLocation = ref("");
 
-const filteredTableData = computed(() => {
+const filteredTableData = computed(() =>{
   if (!selectedLocation.value) {
     return guests.value;
   }
   return guests.value.filter(
-    (row) => row.travelling === selectedLocation.value,
+    (row:any) => row.travelling === selectedLocation.value,
   );
 });
 </script>
