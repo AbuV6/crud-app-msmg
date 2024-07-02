@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, computed} from "vue"
-import CardComponent from "./CardComponent.vue";
+import GuestCard from "./GuestCard.vue";
 import { useGuestStore } from "../stores/guestList";
 const store = useGuestStore();
 import { storeToRefs } from "pinia";
@@ -36,7 +36,7 @@ const filteredTableData = computed(() =>{
 
 
   <div class="container">
-    <CardComponent
+    <GuestCard
       v-for="row in filteredTableData"
       :key="row.id"
       :name="row.name"

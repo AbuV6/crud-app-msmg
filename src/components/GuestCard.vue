@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "CardComponent",
+  name: "GuestCard",
   props: {
     name: String,
     age: Number,
